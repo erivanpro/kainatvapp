@@ -112,7 +112,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
 
     setIsLoading(true);
     try {
-      const response = await axios.post(`https://kainanewappbackend2024.onrender.com/users/update/${userId}`, {
+      const response = await axios.post(`https://backendkainatv.onrender.com/users/update/${userId}`, {
         image: profileImage, // Use the image URL
         name,
         email,

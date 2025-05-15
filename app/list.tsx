@@ -92,7 +92,7 @@ const List: React.FC = () => {
       const fetchPost = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`https://kainanewappbackend2024.onrender.com/post/${id}`);
+          const response = await axios.get(`https://backendkainatv.onrender.com/post/${id}`);
           if (response.status === 200) {
             console.log(response.data);
             setPost(response.data.data); // Access the post data from the response
@@ -132,39 +132,32 @@ const List: React.FC = () => {
 
 
 
-  const handleLike = async () => {
-    const userId = userData?.id;
-    if (post && userId) {
-      try {
-        const response = await axios.post(
-          `https://kainanewappbackend2024.onrender.com/post/${post.id}/like`,
-          { userId } // Pass userId to the backend
-        );
-        if (response.status === 200) {
-          alert("Merci pour le soutien");
-          setLiked(true);
-          // Update the post with the new like count
-          const updatedPost = {
-            ...post,
-            likes: response.data.likes,
-          };
-          setPost(updatedPost);
-        } else {
-          console.error(
-            "Unexpected response status:",
-            response.status,
-            response.data
+    const handleLike = async () => {
+      const userId = userData?.id;
+      if (post && userId) {
+        try {
+          const response = await axios.post(
+            `https://backendkainatv.onrender.com/post/${post.id}/like`,
+            { userId }
           );
+    
+          if (response.status === 200) {
+            alert("Merci pour le soutien !");
+            setLiked(true);
+            setPost(prev => prev ? { ...prev, likes: response.data.likes } : prev);
+          }
+        } catch (error: any) {
+          if (error.response?.status === 400) {
+            Alert.alert("Vous avez déjà aimé ce post.");
+          } else {
+            console.error("Erreur technique :", error);
+            Alert.alert("Une erreur est survenue. Veuillez réessayer plus tard.");
+          }
         }
-      } catch (error) {
-        console.error("Technical issue with the like button:", error);
-        Alert.alert(
-          "Vous avez déjà aimé ce post."
-        );
       }
-    }
-  };
-  
+    };
+    
+    
 
 
 
@@ -188,7 +181,7 @@ const List: React.FC = () => {
   const addToLibrary = async () => {
     if (post && userId) {
       try {
-        const response = await axios.post("https://kainanewappbackend2024.onrender.com/library/add", {
+        const response = await axios.post("https://backendkainatv.onrender.com/library/add", {
           userId,
           postId: post.id,
         });
@@ -296,6 +289,8 @@ const List: React.FC = () => {
                 </Text>
                 <PlusPink />
               </TouchableOpacity>
+
+              
               <TouchableOpacity
                 style={[styles.likeButton, liked ? styles.liked : {}]}
                 onPress={handleLike}
@@ -304,6 +299,15 @@ const List: React.FC = () => {
                 {liked ? <LoveButtonComplete /> : <LikeIcon />}
                 <Text style={styles.likes}>{post.likes}</Text>
               </TouchableOpacity>
+
+
+
+
+
+
+
+
+
             </Animatable.View>
 
             <Text style={styles.description}>{post.description}</Text>
@@ -396,7 +400,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   description: {
-    marginTop:14,
+    marginTop: 14,
     fontSize: 14,
     color: "#14171A",
     fontFamily: "Euclid",
@@ -409,7 +413,7 @@ const styles = StyleSheet.create({
   addButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#E1E6E9",
+    backgroundColor: "#E5E7EB", // Tailwind gray-200
     padding: 10,
     borderRadius: 20,
   },
@@ -422,7 +426,7 @@ const styles = StyleSheet.create({
   likeButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#E1E8ED",
+    backgroundColor: "#E5E7EB", // Tailwind gray-200
     padding: 10,
     borderRadius: 20,
   },

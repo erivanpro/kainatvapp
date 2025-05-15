@@ -1,70 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, GestureResponderEvent } from "react-native";
-import { useFonts } from "expo-font";
+import { useFonts as useCustomFonts } from "expo-font";
+import { useFonts as useGoogleFonts, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import * as SplashScreen from "expo-splash-screen";
-import { Stack, router, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import LogoComponent from "@/components/icons/logo";
-import { UserProvider } from "./UserContext"; // Import the UserProvider
-import 'react-native-gesture-handler'
+import { UserProvider } from "./UserContext";
+import "react-native-gesture-handler";
 
 export default function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({
+  const [customFontsLoaded, customFontError] = useCustomFonts({
     Euclid: require("../assets/fonts/Euclid.ttf"),
     Okta: require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
+
+  const [googleFontsLoaded] = useGoogleFonts({
+    Poppins_600SemiBold,
+  });
+
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-
-
-
   useEffect(() => {
-    const OnPress = () => {
-      router.push('(drawer)');
-    }
     const prepare = async () => {
-      if (fontsLoaded || fontError) {
+      if (customFontsLoaded || customFontError || googleFontsLoaded) {
         await SplashScreen.hideAsync();
         setIsLoading(false);
       }
     };
     prepare();
-  }, [fontsLoaded, fontError]);
+  }, [customFontsLoaded, customFontError, googleFontsLoaded]);
 
-
-
-
-
-
-
-
-  
-  if (isLoading) {
-    return null; // Or you can render a loading spinner here
-  }
-
-
-
+  if (isLoading) return null;
 
   function OnPress(event: GestureResponderEvent): void {
-    router.push('(drawer)');
+    router.push("(drawer)");
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   

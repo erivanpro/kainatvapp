@@ -48,7 +48,7 @@ const LePailladin: React.FC = () => {
 
   const fetchPostsLePailladin = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/lepailladin"); 
+      const response = await fetch("https://backendkainatv.onrender.com/post/lepailladin"); 
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setLePailladinPosts(data);
@@ -59,7 +59,7 @@ const LePailladin: React.FC = () => {
 
   const fetchLatestPostLePailladin = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/last/pailladin");
+      const response = await fetch("https://backendkainatv.onrender.com/post/last/pailladin");
       const data = await response.json();
       if (!response.ok) throw new Error("Network response was not ok");
       setLatestLePailladinPost(data.length > 0 ? data[0] : null);

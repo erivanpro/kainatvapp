@@ -40,7 +40,7 @@ const Home = () => {
 
   const fetchLibraryPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`https://kainanewappbackend2024.onrender.com/library/${userId}`);
+      const response = await axios.get(`https://backendkainatv.onrender.com/library/${userId}`);
       if (response.status === 200) {
         setPosts(response.data);
       } else {
@@ -94,7 +94,7 @@ const Home = () => {
 
   const handleDelete = async (postId: number) => {
     try {
-      const response = await axios.delete(`https://kainanewappbackend2024.onrender.com/library/delete/${userId}/${postId}`);
+      const response = await axios.delete(`https://backendkainatv.onrender.com/library/delete/${userId}/${postId}`);
       if (response.status === 200) {
         setPosts(posts.filter(post => post.id !== postId));
       } else {
@@ -189,24 +189,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#F9FAFB', // gray-50
   },
   postContainer: {
     margin: 3,
     marginBottom: 16,
     padding: 12,
-    fontFamily: "Euclid",
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF', // white
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 3,
   },
   post: {
     flexDirection: 'row',
-    fontFamily: "Euclid",
     alignItems: 'center',
     marginBottom: 8,
   },
@@ -214,32 +212,31 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 8,
-    backgroundColor: '#ddd',
+    backgroundColor: '#E5E7EB', // gray-200
   },
   postContent: {
     marginLeft: 12,
-    fontFamily: "Euclid",
     flex: 1,
   },
   title: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333333',
+    color: '#374151', // gray-700
     fontFamily: "Euclid",
   },
   subtitle: {
     fontSize: 14,
-    fontFamily: "Euclid",
-    color: '#666666',
+    color: '#6B7280', // gray-500
     marginVertical: 4,
+    fontFamily: "Euclid",
   },
   date: {
     fontSize: 12,
+    color: '#9CA3AF', // gray-400
     fontFamily: "Euclid",
-    color: '#999999',
   },
   deleteButton: {
-    backgroundColor: '#BAB6B7',
+    backgroundColor: '#9CA3AF', // gray-400
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -247,15 +244,15 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   deleteText: {
-    color: '#ffffff',
+    color: '#FFFFFF', // white
     fontSize: 14,
-    fontFamily: "Euclid",
     fontWeight: '600',
+    fontFamily: "Euclid",
   },
   emptyText: {
     textAlign: 'center',
     fontSize: 16,
-    color: '#999999',
+    color: '#9CA3AF', // gray-400
     fontFamily: "Euclid",
     marginTop: 20,
   },
@@ -269,19 +266,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 12,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#F3F4F6', // gray-100
     borderRadius: 8,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 3,
   },
   skeletonImage: {
     width: 100,
     height: 100,
     borderRadius: 8,
-    backgroundColor: '#ddd',
+    backgroundColor: '#E5E7EB', // gray-200
   },
   skeletonContent: {
     marginLeft: 12,
@@ -290,23 +287,24 @@ const styles = StyleSheet.create({
   skeletonTitle: {
     width: '60%',
     height: 20,
-    backgroundColor: '#ddd',
+    backgroundColor: '#D1D5DB', // gray-300
     borderRadius: 4,
     marginBottom: 8,
   },
   skeletonSubtitle: {
     width: '80%',
     height: 16,
-    backgroundColor: '#ddd',
+    backgroundColor: '#E5E7EB',
     borderRadius: 4,
     marginBottom: 4,
   },
   skeletonDate: {
     width: '40%',
     height: 14,
-    backgroundColor: '#ddd',
+    backgroundColor: '#E5E7EB',
     borderRadius: 4,
   },
 });
+
 
 export default Home;

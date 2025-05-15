@@ -12,7 +12,9 @@ const SkeletonLoader: React.FC = () => {
           <View style={styles.skeletonSubHeaderText} />
         </View>
       </Animatable.View>
+
       <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.skeletonBox} />
+
       <View style={styles.skeletonContent}>
         <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.skeletonText} />
         <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.skeletonText} />
@@ -25,7 +27,7 @@ const SkeletonLoader: React.FC = () => {
 const styles = StyleSheet.create({
   skeletonContainer: {
     padding: 16,
-    backgroundColor: '#FFF',
+    backgroundColor: '#F9FAFB', // Tailwind gray-50
     flex: 1,
   },
   skeletonHeader: {
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#E1E9EE',
+    backgroundColor: '#E5E7EB', // Tailwind gray-200
     marginRight: 16,
   },
   skeletonHeaderTextContainer: {
@@ -46,21 +48,21 @@ const styles = StyleSheet.create({
   skeletonHeaderText: {
     width: '80%',
     height: 15,
-    backgroundColor: '#E1E9EE',
+    backgroundColor: '#D1D5DB', // Tailwind gray-300
     borderRadius: 4,
     marginBottom: 6,
   },
   skeletonSubHeaderText: {
     width: '50%',
     height: 15,
-    backgroundColor: '#E1E9EE',
+    backgroundColor: '#D1D5DB',
     borderRadius: 4,
   },
   skeletonBox: {
     width: '100%',
     height: 200,
-    backgroundColor: '#E1E9EE',
-    borderRadius: 4,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 8,
     marginBottom: 16,
   },
   skeletonContent: {
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
   skeletonText: {
     width: '100%',
     height: 20,
-    backgroundColor: '#E1E9EE',
+    backgroundColor: '#D1D5DB',
     borderRadius: 4,
     marginBottom: 10,
   },

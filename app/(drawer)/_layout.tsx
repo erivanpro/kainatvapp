@@ -123,9 +123,7 @@ const CustomDrawerContent: React.FC<{ navigation: any; drawerRef: any }> = (
           </TouchableOpacity>
 
           <View style={styles.linkContainer}>
-            <View style={styles.boxwhite}>
-              <Text style={styles.boxwhitetxt}>Version 7.2</Text>
-            </View>
+           
 
             <DrawerItem
               label="Profil"
@@ -227,9 +225,7 @@ const CustomHeaderRight: React.FC = () => {
         <KainaTvIcon style={styles.icon} />
       </View>   
        
-       <View>
-       <LiveIcon style={styles.icon}  />
-       </View>
+       
       </View>
     </TouchableOpacity>
   );
@@ -247,13 +243,23 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = () => {
   const gotoButton = ()=>{
     router.push('(drawer)');
   }
-  const { id, name, email, birthday, country } = route.params as {
-    id: number;
-    name: string;
-    email: string;
-    birthday: Date;
-    country: string;
-  };
+
+
+
+
+
+  const params = route.params as {
+    id?: any;
+    name?: string;
+    email?: string;
+    birthday?: Date;
+    country?: string;
+  } ?? {};
+
+
+  const { id, name, email, birthday, country } = params;
+
+
   return (
     // Return the Drawer component
     <Drawer
@@ -345,7 +351,7 @@ const styles = StyleSheet.create({
   },
   // Style for the link container
   linkContainer: {
-    marginTop: 100, // Add a top margin of 100 units
+    marginTop: 10, // Add a top margin of 100 units
   },
   // Style for the drawer
   drawerStyle: {

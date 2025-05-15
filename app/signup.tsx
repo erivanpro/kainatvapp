@@ -98,7 +98,6 @@ const Signup = () => {
 
 
   
-
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -106,30 +105,30 @@ const Signup = () => {
       aspect: [4, 3],
       quality: 1,
     });
-
-
     if (!result.canceled) {
       const uri = result.assets[0].uri;
-      setImage(uri);
+      setImage(uri); // Affiche immédiatement l'image localement pendant le chargement
       try {
-        // Convert image to a blob
+        // Convertir l'image en blob
         const response = await fetch(uri);
         const blob = await response.blob();
-        // Create a reference to the file in Firebase Storage
+        // Référence Firebase Storage
         const imageRef = ref(storage, `images/${Date.now()}`);
-        // Upload the image blob to Firebase Storage
+        // Upload
         await uploadBytes(imageRef, blob);
-        // Get the download URL
+        // Obtenir l'URL
         const downloadURL = await getDownloadURL(imageRef);
-        console.log("Image URL: ", downloadURL); // Log the image URL
-        setImage(downloadURL); // Update the state with the URL
+        console.log("Image URL: ", downloadURL);
+        setImage(downloadURL); // Remplace l'image locale par l'URL Firebase
       } catch (error) {
         console.error("Error uploading image: ", error);
-        Alert.alert("Error", "Failed to upload the image.");
+        Alert.alert("Erreur", "Échec du téléversement de l'image. Une image par défaut sera utilisée.");
+        const fallbackImage = "https://plus.unsplash.com/premium_photo-1742457610484-4c623a7f5656?q=80&w=3131&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+        setImage(fallbackImage);
       }
     }
   };
-
+  
 
 
 
@@ -155,34 +154,36 @@ const Signup = () => {
 
 
 
-  
   const handleSubmit = async () => {
     setIsLoading(true);
     const { name, email, birthDate, password, country, verifyPassword } = formState;
-    if (!image) {
-      Alert.alert("Erreur", "Veuillez choisir une photo de profil.");
-      setIsLoading(false);
-      return;
-    } 
+  
+    // Vérifications
     if (verifyPassword !== password) {
       Alert.alert("Erreur", "Les mots de passe ne correspondent pas.");
       setIsLoading(false);
       return;
     }
+  
     if (!isValidEmail(email)) {
       Alert.alert("Erreur de connexion", "Votre email n'est pas valide.");
       setIsLoading(false);
       return;
     }
+  
+    // Image par défaut si aucune n'est fournie
+    const imageToUse = image || `https://plus.unsplash.com/premium_photo-1742457610484-4c623a7f5656?q=80&w=3131&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`;
+  
     try {
-      const response = await axios.post("https://kainanewappbackend2024.onrender.com/signup/signup", {
-        image: image, // Use the image URL
+      const response = await axios.post("https://backendkainatv.onrender.com/signup/signup", {
+        image: imageToUse,
         name,
         email,
         birthDate,
         password,
         country,
       });
+  
       if (response.status === 201) {
         const newUserData = response.data;
         updateUser(newUserData);
@@ -203,6 +204,7 @@ const Signup = () => {
       setIsLoading(false);
     }
   };
+  
 
 
   
@@ -368,7 +370,14 @@ const Signup = () => {
           end={{ x: 1, y: 1 }}
           style={styles.buttonGradient}
         >
-          <Text style={styles.buttonText}>Continuer</Text>
+        
+
+          <Text style={styles.buttonText}>
+             Créer mon compte Kaina TV
+           </Text>
+
+
+
         </LinearGradient>
       </TouchableOpacity>
 

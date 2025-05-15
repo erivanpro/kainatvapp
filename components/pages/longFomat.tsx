@@ -59,7 +59,7 @@ const LongsFormat: React.FC = () => {
 
   const fetchPostsLongsFormat = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/longsformats");
+      const response = await fetch("https://backendkainatv.onrender.com/post/longsformats");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -79,7 +79,7 @@ const LongsFormat: React.FC = () => {
 
   const fetchLatestPostLongsFormat = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/last/longsformats");
+      const response = await fetch("https://backendkainatv.onrender.com/post/last/longsformats");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

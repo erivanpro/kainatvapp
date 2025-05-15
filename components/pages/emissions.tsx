@@ -52,7 +52,7 @@ const Emissions: React.FC = () => {
 
   const fetchPostsEmissions = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/emissions");
+      const response = await fetch("https://backendkainatv.onrender.com/post/emissions");
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setEmissions(data);
@@ -65,7 +65,7 @@ const Emissions: React.FC = () => {
   
   const fetchLatestPostEmissions = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/last/emissions");
+      const response = await fetch("https://backendkainatv.onrender.com/post/last/emissions");
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setLatestPostEmissions(data.length > 0 ? data[0] : null);

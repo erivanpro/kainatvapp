@@ -63,37 +63,33 @@ const VideoPost: React.FC<VideoPostProps> = ({ post, isActive }) => {
   
 
  
+
   const handleLike = async () => {
     const userId = userData?.id;
     if (post && userId) {
       try {
         const response = await axios.post(
-          `https://kainanewappbackend2024.onrender.com/post/${post.id}/like`,
-          { userId } // Pass userId to the backend
+          `https://backendkainatv.onrender.com/post/${post.id}/like`,
+          { userId }
         );
+  
         if (response.status === 200) {
-          alert("Merci pour le soutien");
+          alert("Merci pour le soutien !");
           setLiked(true);
-          // Update the post with the new like count
-          const updatedPost = {
-            ...post,
-            likes: response.data.likes,
-          };
-        } else {
-          console.error(
-            "Unexpected response status:",
-            response.status,
-            response.data
-          );
+          setPost(prev => prev ? { ...prev, likes: response.data.likes } : prev);
         }
-      }catch (err) {
-        
+      } catch (error: any) {
+        if (error.response?.status === 400) {
+          Alert.alert("Vous avez déjà aimé ce post.");
+        } else {
+          console.error("Erreur technique :", error);
+          Alert.alert("Une erreur est survenue. Veuillez réessayer plus tard.");
+        }
       }
     }
   };
   
-
-
+  
 
 
 
@@ -103,7 +99,7 @@ const VideoPost: React.FC<VideoPostProps> = ({ post, isActive }) => {
     if (post && userId) {
       try {
         const response = await axios.post(
-          "https://kainanewappbackend2024.onrender.com/library/add",
+          "https://backendkainatv.onrender.com/library/add",
           {
             userId,
             postId: post.id,
@@ -258,7 +254,7 @@ const App: React.FC = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          "https://kainanewappbackend2024.onrender.com/post/post"
+          "https://backendkainatv.onrender.com/post/post"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -369,3 +365,7 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+function setPost(arg0: (prev: any) => any) {
+  throw new Error("Function not implemented.");
+}
+

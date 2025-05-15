@@ -76,7 +76,7 @@ const Captations: React.FC = () => {
 
   const fetchPostsCaptations = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/captations"); 
+      const response = await fetch("https://backendkainatv.onrender.com/post/captations"); 
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
       setCaptations(data);
@@ -89,7 +89,7 @@ const Captations: React.FC = () => {
 
   const fetchLatestPostCaptations = async () => {
     try {
-      const response = await fetch("https://kainanewappbackend2024.onrender.com/post/last/captations");
+      const response = await fetch("https://backendkainatv.onrender.com/post/last/captations");
       const data = await response.json();
       if (!response.ok) throw new Error("Network response was not ok");
       setLatestPostCaptations(data.length > 0 ? data[0] : null);
